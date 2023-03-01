@@ -1,17 +1,11 @@
-use std::{io, str::FromStr};
-
-use num_bigint::BigUint;
+use tools::{get_primitive_root, get_safe_prime};
 
 mod tools;
-use tools::miller_rabin::miller_rabin;
 
 fn main() {
-    let mut buf = String::new();
-    let input_module = io::stdin();
-
-    input_module.read_line(&mut buf).unwrap();
-    let a = BigUint::from_str(buf.trim_end()).unwrap();
-    let is_prime = miller_rabin(&a, 32);
-
-    println!("a = {a}\nis_prime? {}", is_prime, a = a)
+    let bit_len = 512u64;
+    let safe_prime = get_safe_prime(bit_len);
+    println!("safe prime = {}", safe_prime);
+    let primitive_root = get_primitive_root(bit_len, &safe_prime);
+    println!("primitive root = {}", primitive_root)
 }
